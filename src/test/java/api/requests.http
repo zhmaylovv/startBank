@@ -1,0 +1,377 @@
+# Позитивный тест Внесение средств на счет
+POST localhost:8765/api/deposit
+Content-Type: application/json
+
+{ "account_number": 12345678900987654321, "size"  : 55555 }
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Balance increase completed successfully\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Позитивный тест Выпуск новой карты
+POST localhost:8765/api/create_new_card
+Content-Type: application/json
+
+{"account_number" : 12345678900987654322 }
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Card added successfully\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Позитивный тест Запрос баланса счета
+GET localhost:8765/api/get_balance?account_number=12345678900987654322
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"12345678900987654322\":\"100500.00\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+
+### Позитивный тест Запрос списка карт
+GET localhost:8765/api/get_card_list?client_id=1
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "[{\"id\":1,\"cardNumber\":1111222233334441},{\"id\":2,\"cardNumber\":1111222233334442},{\"id\":4,\"cardNumber\":1111222233334444}]"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### НЕГАТИВНЫЙ тест Запрос баланса счета
+GET localhost:8765/api/get_balance?account_number=1234345678в9009876555550
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Error, something goes wrong. Please check correct of input\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+### НЕГАТИВНЫЙ тест Запрос списка карт
+GET localhost:8765/api/get_card_list?client_id=12f2
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Error, something goes wrong. Please check correct of input\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Негативный тест Внесение средств на счет
+POST localhost:8765/api/deposit
+Content-Type: application/json
+
+{ "account_number": "1234567890098765f4321", "size"  : 55555 }
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Error, something goes wrong. Please check correct of input\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Негативный тест Выпуск новой карты
+POST localhost:8765/api/create_new_card
+Content-Type: application/json
+
+{"account_number" : "12345678900987в654322" }
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Error, something goes wrong. Please check correct of input\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Позитивный тест Запрос баланса счета
+GET localhost:8765/api/get_contractors_list?size=0
+Accept: application/json
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "[{\"id\":1,\"name\":\"Рога и копыта\"},{\"id\":2,\"name\":\"Орден джедаев\"},{\"id\":3,\"name\":\"Фонд помощи не прошедшим стажировку в сбере\"}]"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Позитивный тест Выпуск новой карты
+POST localhost:8765/api/add_contractor
+Content-Type: application/json
+
+{"name" : "КОРПОРАЦИЯ ДОБРА" }
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Contractor КОРПОРАЦИЯ ДОБРА added successfully\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Позитивный тест Выпуск новой карты
+POST localhost:8765/api/add_contractor
+Content-Type: application/json
+
+{"name" : "КОРПОРАЦИЯ ДОБРА" }
+
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Error\":\"Contractor already exist\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+### Проверяем ушли ли деньги
+GET localhost:8765/api/get_balance?account_number=12345678900987654321
+Accept: application/json
+
+
+### Позитивный тест выполнение перевода
+POST localhost:8765/api/transaction
+Content-Type: application/json
+
+{"clientAccountNumber": 12345678900987654321, "contractorAccountNumber" : 12345678901234567891, "size"  : 55555}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Transaction success\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
+
+
+
+### Тест - когда не хватает денег
+POST localhost:8765/api/transaction
+Content-Type: application/json
+
+{"clientAccountNumber": 12345678900987654321, "contractorAccountNumber" : 12345678901234567891, "size"  : 66655555}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function() {
+        var type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response charset is UTF-8", function() {
+        var type = response.contentType.charset;
+        client.assert(type === "UTF-8", "Expected UTF-8 but received '" + type + "'");
+    });
+
+    client.test("Response body equals", function() {
+        var body = JSON.stringify(response.body)
+        var expected = "{\"Result\":\"Transaction aborted- no enough money\"}"
+        client.assert(expected === body, "Expected" + expected + "But found " + body  );
+    });
+%}
