@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.sber.controllers.ControllerDBTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-05-28T07:12:59" hostname="SIB-WSM-0000299" time="0.005">
+  <properties/>
+  <testcase name="dbInit()" classname="ru.sber.controllers.ControllerDBTest" time="0.002"/>
+  <testcase name="getConnection()" classname="ru.sber.controllers.ControllerDBTest" time="0.001"/>
+  <testcase name="getPreparedStatement()" classname="ru.sber.controllers.ControllerDBTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

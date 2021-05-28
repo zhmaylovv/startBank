@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.sber.dao.AccountDAOTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2021-05-28T07:12:59" hostname="SIB-WSM-0000299" time="0.014">
+  <properties/>
+  <testcase name="increaseBalanceByNumber()" classname="ru.sber.dao.AccountDAOTest" time="0.002"/>
+  <testcase name="compareIdWithGettingAccountByNumber()" classname="ru.sber.dao.AccountDAOTest" time="0.002"/>
+  <testcase name="getAccountById()" classname="ru.sber.dao.AccountDAOTest" time="0.002"/>
+  <testcase name="fallIfCheckedBalanceWorkWrong()" classname="ru.sber.dao.AccountDAOTest" time="0.002"/>
+  <testcase name="checkBalanceByAccNumber()" classname="ru.sber.dao.AccountDAOTest" time="0.001"/>
+  <testcase name="checkIncreaseBalanceByAccId()" classname="ru.sber.dao.AccountDAOTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

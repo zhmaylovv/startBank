@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.sber.dao.ClientDAOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-28T07:12:59" hostname="SIB-WSM-0000299" time="0.002">
+  <properties/>
+  <testcase name="getConnection()" classname="ru.sber.dao.ClientDAOTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

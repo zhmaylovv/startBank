@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.sber.dao.CardDAOTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-05-28T07:12:59" hostname="SIB-WSM-0000299" time="0.042">
+  <properties/>
+  <testcase name="getMaxCardNumber()" classname="ru.sber.dao.CardDAOTest" time="0.027"/>
+  <testcase name="checkGetCardById()" classname="ru.sber.dao.CardDAOTest" time="0.006"/>
+  <testcase name="cardAddByAccNumber()" classname="ru.sber.dao.CardDAOTest" time="0.005"/>
+  <testcase name="queryGetCardList()" classname="ru.sber.dao.CardDAOTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
