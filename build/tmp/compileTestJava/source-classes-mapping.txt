@@ -1,0 +1,10 @@
+ru/sber/dao/CardDAOTest.java
+ ru.sber.dao.CardDAOTest
+ru/sber/dao/ClientDAOTest.java
+ ru.sber.dao.ClientDAOTest
+ru/sber/utils/WebUtilsTest.java
+ ru.sber.utils.WebUtilsTest
+ru/sber/controllers/ControllerDBTest.java
+ ru.sber.controllers.ControllerDBTest
+ru/sber/dao/AccountDAOTest.java
+ ru.sber.dao.AccountDAOTest
